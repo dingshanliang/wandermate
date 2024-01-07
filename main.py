@@ -1,13 +1,13 @@
 from fastapi import FastAPI
+from api.api import router
+from db.session import Base, engine
 
-app = FastAPI()
+#  创建数据库表
+Base.metadata.create_all(bind=engine)
 
+app = FastAPI(
+    title='wondermate'
+)
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+#  添加路由
+app.include_router(router)

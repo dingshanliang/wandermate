@@ -27,7 +27,6 @@ def get_db() -> Generator:
 def get_current_user(
         db: Session = Depends(get_db), token: str = Depends(reusable_oauth2)
 ) -> models.User:
-    print(f"Token: {token}")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         token_data = schemas.TokenPayload(**payload)

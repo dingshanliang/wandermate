@@ -5,17 +5,16 @@ from typing import Any, Union
 from jose import jwt
 from passlib.context import CryptContext
 
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
-SECRET_KEY: str = secrets.token_urlsafe(32)
+# SECRET_KEY: str = secrets.token_urlsafe(32)
+SECRET_KEY: str = "09d25e094faa6ca2556c818166"
 
 
 def create_access_token(
-    subject: Union[str, Any], expires_delta: timedelta = None
+        subject: Union[str, Any], expires_delta: timedelta = None
 ) -> str:
     if expires_delta:
         expire = datetime.utcnow() + expires_delta

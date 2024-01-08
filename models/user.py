@@ -1,12 +1,14 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 from db.session import Base
 
+if TYPE_CHECKING:
+    from .trip import Trip     # noqa: F401
 
-# username: str
-# avatar: Optional[str] = None
-# phone: Optional[str] = None
-# email: Optional[str] = None
+
 class User(Base):
     # table name
     __tablename__ = 'users'
@@ -17,6 +19,8 @@ class User(Base):
     phone = Column(String)
     email = Column(String)
     hashed_password = Column(String, nullable=False)
+
+    trips = relationship("Trip", back_populates="creator")
 
 
 

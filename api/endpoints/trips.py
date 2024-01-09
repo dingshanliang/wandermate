@@ -86,4 +86,13 @@ def get_trip(
         raise HTTPException(status_code=403, detail="Forbidden")
     return trip
 
-# 获取我所参与的所有trip
+
+# 获取我所参与的所有trip(也就是被邀请的)
+@router.get("/invited/", response_model=List[schemas.TripResponse])
+def get_invited_trips(
+        *,
+        db: Session = Depends(get_db),
+        current_user: schemas.UserResponse = Depends(get_current_user)
+):
+    trips = crud.trip.get_by_invitee_id(db, invitee_id=current_user.id)
+    return trips

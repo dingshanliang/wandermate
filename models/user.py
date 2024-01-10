@@ -7,6 +7,7 @@ from db.session import Base
 
 if TYPE_CHECKING:
     from .trip import Trip     # noqa: F401
+    from .activity import Activity  # noqa: F401
 
 
 class User(Base):
@@ -21,6 +22,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
 
     trips = relationship("Trip", back_populates="creator")
+    created_activities = relationship("Activity", back_populates="creator")
 
 
 

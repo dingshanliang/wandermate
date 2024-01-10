@@ -7,6 +7,7 @@ from db.session import Base
 
 if TYPE_CHECKING:
     from .user import User  # noqa: F401
+    from .activity import Activity  # noqa: F401
 
 
 class Trip(Base):
@@ -32,3 +33,5 @@ class Trip(Base):
 
     creator_id = Column(Integer, ForeignKey("users.id"))
     creator = relationship("User", back_populates="trips")
+
+    activities = relationship("Activity", back_populates="trip")
